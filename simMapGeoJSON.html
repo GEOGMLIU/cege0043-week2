@@ -12,11 +12,12 @@
 	crossorigin=""></script>
 
 	<!-- the following CSS is used to set the size of the Map-->
-	<style type="text/css">
-	#mapid{height: 180px;}
-</style>
-
-<!--title>Leaflet and Javascript Example</title-->
+	<style type="text/css">#mapid{height: 180px;}</style>
+	<!-- the following links incorporate the CSS required for custom icon creation -->
+	<link rel="stylesheet" href="ionicons.min.css">
+	<link rel="stylesheet" href="leaflet.awesome-markers.css">
+	<script src="leaflet.awesome-markers.js"></script>
+	<!--title>Leaflet and Javascript Example</title-->
 </head>
 <body>
 	<!--The mapid div will hold the map -->
@@ -61,8 +62,18 @@
 			"coordinates": [-0.138040, 51.526610]
 		}
 	};
+	var testMarkerPink = L.AwesomeMarkers.icon({
+		icon: 'play',
+		markerColor: 'pink'
+	});
 	// and add it to the map
-	L.geoJSON(geojsonFeature).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+"	"+geojsonFeature.properties.popupContent+"<b>");
+	L.geoJSON(geojsonFeature, {
+		pointToLayer: function (feature, latlng) {
+			return L.marker(latlng, {icon:testMarkerPink});
+		}
+	}).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+" "+geojsonFeature.properties.popupContent+"<b>");
+
+
 </script>
 <p style="color: tomato;">
 	hello world!!
