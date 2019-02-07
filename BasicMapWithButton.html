@@ -9,9 +9,12 @@
 	<script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
 	integrity="sha512-
 	mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
-	crossorigin=""></script>
+	crossorigin="">
+</script>
 
-	<script>function loadEarthquakeData() {
+<script>
+	function loadEarthquakeData() 
+	{
 		// call the getEarthquakes code
 		// keep the alert message so that we know something is happening
 		alert("Loading Earthquakes");
@@ -20,7 +23,8 @@
 	// create a variable that will hold the XMLHttpRequest() - this must be done outside a function so that all the functions can use the same variable
 	var client;
 	// create the code to get the Earthquakes data using an XMLHttpRequest
-	function getEarthquakes() {
+	function getEarthquakes() 
+	{
 		client = new XMLHttpRequest();
 		client.open('GET','https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson');
 		client.onreadystatechange = earthquakeResponse;
@@ -32,11 +36,11 @@
 		// this function listens out for the server to say that the data is ready - i.e. has state 4
 		if (client.readyState == 4) 
 		{
-		// once the data is ready, process the data
-		var earthquakedata = client.responseText;
-		loadEarthquakelayer(earthquakedata);
+			// once the data is ready, process the data
+			var earthquakedata = client.responseText;
+			loadEarthquakelayer(earthquakedata);
+		}
 	}
-}
 	// convert the received data - which is text - to JSON format and add it to the map
 	function loadEarthquakelayer(earthquakedata) 
 	{
@@ -46,23 +50,64 @@
 		earthquakelayer = L.geoJson(earthquakejson).addTo(mymap);
 		// change the map zoom so that all the data is shown
 		mymap.fitBounds(earthquakelayer.getBounds());
-	}</script>
+	}
+</script>
 
-	<script>function removeEarthquakeData() 
+<script>
+	var earthquakelayer;
+	function removeEarthquakeData() 
 	{
-		alert("remove the earthquake data here");
-	}</script>
+		alert("Earthquake data will be removed");
+		mymap.removeLayer( earthquakelayer );
+	}
+</script>
+
+<script>
+	var earthquakelayer;
+	function removeEarthquakeData() 
+	{
+		alert("Earthquake data will be removed");
+		mymap.removeLayer( earthquakelayer );
+	}
+</script>
+<script>
+	//var busstopslayer;
+	function removeBusstops() 
+	{
+		alert("Busstops data will be removed");
+		//mymap.removeLayer( earthquakelayer );
+	}
+</script>
+<script>
+	//var busstopslayer;
+	function loadBusstops() 
+	{
+		alert("Busstops data will be loaded");
+		//mymap.removeLayer( earthquakelayer );
+	}
+</script>
 	<!-- the following CSS is used to set the size of the Map-->
 	<style type="text/css">#mapid{height: 180px;}</style>
 
-<!--title>Leaflet and Javascript Example</title-->
+	<!--title>Leaflet and Javascript Example</title-->
 </head>
+
+
 <body>
 	<!--The mapid div will hold the map -->
-	<div id="mapid" style="width: 800px; height: 600px;"></div>
-	<button id="loadData" name="loadData" onclick="loadEarthquakeData()">Click here to load the Earthquake data </button>
+	<div id="mapid" style="width: 800px; height: 600px;">
+	</div>
+	<button id="loadData" name="loadData" onclick="loadEarthquakeData()">Click here to load the Earthquake data 
+	</button>
 	<button id="removeEarthquakeData" name="removeEarthquakeData"
-	onclick="removeEarthquakeData()">Click here to remove the Earthquake data </button>
+	onclick="removeEarthquakeData()">Click here to remove the Earthquake data 
+	</button>
+	<button id="loadBusstops" name="loadBusstops"
+	onclick="loadBusstops()">Click here to load the Busstops data		
+	</button>
+	<button id="removeBusstops" name="removeBusstops"
+	onclick="removeBusstops()">Click here to remove the Busstops data
+	</button>
 	<!--the following script will load the map and set the default view and zoom, as well as loading the basemap tiles -->
 	<script>
 	//load the map
